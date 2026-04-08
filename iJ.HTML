@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Gol Matol Minion 💛</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Impact', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #745EA1,#F0EEE4);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.95);
+        padding: 25px;
+        border: 5px solid ;
+        border-radius: 20px;
+        color: #D1B6F0;
+        max-width: 90%;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+        color:  #745EA1;
+        margin-bottom: 13px;
+    }
+
+    #text {
+        font-size: 19px;
+        color: #3B4F63;
+        line-height: 1.6;
+        white-space: pre-line;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 20px;
+        border: none ;
+        border-radius: 25px;
+        background: #ff4d6d;
+        color: white;
+        font-size: 19px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #e63950;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+        #text {
+            font-size: 14px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>FOR MY MINION 💛💛</h1>
+    <div id="text"></div>
+    <button onclick="burstConfetti()">Tap for a Smile ✨</button>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+const message = `Yaar, I know tu abhi kaafi stressed aur scared feel kar rahi hai… and honestly, it’s completely okayyyy to feel like this sometimes✨✨✨. 
+Life kabhi kabhi itni overwhelming ho jaati But tera kabhi kabhi ni hamesha hi hai ki sab kuch ek saath heavy lagta hai. 
+
+But hey, you’re not alone, main hamesha tere saath hoon😤😤. Just take a small break, breathe slowly, don't overthink anything and don’t put so much pressure on yourself😤😤. 
+
+Tu jitna soch rahi hai usse zyada stronggg hai, bas abhi thoda tough phase chal raha hai. Things will get better, trust me💗💗💗. 
+
+And whenever you feel like it’s too much, just text me… I’m always here for you 🤍`;
+
+let i = 0;
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 25);
+    }
+}
+typeWriter();
+
+/* CONFETTI */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let pieces = [];
+
+function createPieces(count) {
+    for (let i = 0; i < count; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 6 + 3,
+            speed: Math.random() * 3 + 2,
+            color: `hsl(${Math.random()*360},100%,70%)`
+        });
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+        if (p.y > canvas.height) p.y = -10;
+    });
+}
+
+function burstConfetti() {
+    pieces = [];
+    createPieces(200);
+}
+
+setInterval(draw, 20);
+
+// initial burst
+burstConfetti();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
